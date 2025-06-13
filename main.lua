@@ -10,7 +10,7 @@ local Window = Luna:CreateWindow({
 
 	ConfigSettings = {
 		RootFolder = nil,
-		ConfigFolder = "SaturnHub"
+		ConfigFolder = "saturnhub"
 	},
 	
 	KeySystem = false,
