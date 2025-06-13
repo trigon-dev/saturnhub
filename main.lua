@@ -5,7 +5,7 @@ local Window = Luna:CreateWindow({
 	Subtitle = nil,
 	LogoID = "86704560187347",
 	LoadingEnabled = true,
-	LoadingTitle = "Saturn Hub Loader",
+	LoadingTitle = "Saturn Hub is loading",
 	LoadingSubtitle = "by coolio",
 
 	ConfigSettings = {
@@ -13,14 +13,14 @@ local Window = Luna:CreateWindow({
 		ConfigFolder = "SaturnHub"
 	},
 	
-	KeySystem = false,
+	KeySystem = true,
 	KeySettings = {
 		Title = "Saturn Hub",
 		Subtitle = "Key System",
-		Note = "Join the Discord server in order to get the key.",
+		Note = "Join the Discord server to get the key.",
 		SaveInRoot = false,
-		SaveKey = false, 
-		Key = {""},
+		SaveKey = true, 
+		Key = {"release"},
 		SecondAction = {
 			Enabled = false,
 			Type = "Link",
