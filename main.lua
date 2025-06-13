@@ -13,7 +13,7 @@ local Window = Luna:CreateWindow({
 		ConfigFolder = "SaturnHub"
 	},
 
-	KeySystem = true,
+	KeySystem = false,
 	KeySettings = {
 		Title = "Saturn Hub",
 		Subtitle = "Key System",
@@ -27,28 +27,3 @@ local Window = Luna:CreateWindow({
 			Parameter = ""
 	}
 })
-
-local Tab = Window:CreateTab({
-	Name = "Tab Example",
-	Icon = "view_in_ar",
-	ImageSource = "Material",
-	ShowTitle = true
-})
-
-Tab:CreateSection("Section Example")
-
-Section:Set("New Section Name")
-Section:Destroy()
-
-Tab:CreateDivider()
-
-Luna:Destroy()
-
-Luna:Notification({ 
-	Title = "Saturn Hub Executed",
-	Icon = "notifications_active",
-	ImageSource = "Material",
-	Content = "test"
-})
-
-Luna:LoadAutoloadConfig()
