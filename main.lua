@@ -78,9 +78,9 @@ local Button = Tab:CreateButton({
 
 Tab:CreateDivider()
 
---[[
-
 Tab:CreateSection("FE")
+
+--[[
 
 local Button = Tab:CreateButton({
 	Name = "",
