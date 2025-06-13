@@ -50,6 +50,68 @@ local Tab = Window:CreateTab({
 	ShowTitle = true
 })
 
+Tab:CreateSection("Admin")
+
+local Button = Tab:CreateButton({
+	Name = "Infinite Yield",
+	Description = nil,
+    	Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+    	end
+})
+
+local Button = Tab:CreateButton({
+	Name = "Nameless Admin",
+	Description = nil,
+    	Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ltseverydayyou/Nameless-Admin/main/Source.lua"))()
+    	end
+})
+
+local Button = Tab:CreateButton({
+	Name = "AK Admin",
+	Description = nil,
+    	Callback = function()
+        loadstring(game:HttpGet("https://angelical.me/ak.lua"))()
+    	end
+})
+
+Tab:CreateDivider()
+
+--[[
+
+Tab:CreateSection("FE")
+
+local Button = Tab:CreateButton({
+	Name = "",
+	Description = nil,
+    	Callback = function()
+        
+    	end
+})
+
+]]
+
+Tab:CreateDivider()
+
+Tab:CreateSection("Script Hubs")
+
+local Button = Tab:CreateButton({
+	Name = "Speed Hub X",
+	Description = nil,
+    	Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()
+    	end
+})
+
+local Button = Tab:CreateButton({
+	Name = "Forge Hub",
+	Description = nil,
+    	Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Skzuppy/forge-hub/main/loader.lua"))()
+    	end
+})
+
 local Tab = Window:CreateTab({
 	Name = "Info",
 	Icon = "view_in_ar",
