@@ -59,13 +59,6 @@ local Button = Tab:CreateButton({
     	end
 })
 
-Luna:Notification({ 
-	Title = "Saturn Hub",
-	Icon = "notifications_active",
-	ImageSource = "Material",
-	Content = "Executed Infinite Yield"
-})
-
 local Button = Tab:CreateButton({
 	Name = "Nameless Admin",
 	Description = nil,
@@ -74,12 +67,6 @@ local Button = Tab:CreateButton({
     	end
 })
 
-Luna:Notification({ 
-	Title = "Saturn Hub",
-	Icon = "notifications_active",
-	ImageSource = "Material",
-	Content = "Executed Nameless Admin"
-})
 
 local Button = Tab:CreateButton({
 	Name = "AK Admin",
@@ -87,13 +74,6 @@ local Button = Tab:CreateButton({
     	Callback = function()
         loadstring(game:HttpGet("https://angelical.me/ak.lua"))()
     	end
-})
-
-Luna:Notification({ 
-	Title = "Saturn Hub",
-	Icon = "notifications_active",
-	ImageSource = "Material",
-	Content = "Executed AK Admin"
 })
 
 Tab:CreateDivider()
@@ -124,26 +104,12 @@ local Button = Tab:CreateButton({
     	end
 })
 
-Luna:Notification({ 
-	Title = "Saturn Hub",
-	Icon = "notifications_active",
-	ImageSource = "Material",
-	Content = "Executed Speed Hub X"
-})
-
 local Button = Tab:CreateButton({
 	Name = "Forge Hub",
 	Description = nil,
     	Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Skzuppy/forge-hub/main/loader.lua"))()
     	end
-})
-
-Luna:Notification({ 
-	Title = "Saturn Hub",
-	Icon = "notifications_active",
-	ImageSource = "Material",
-	Content = "Executed Forge Hub"
 })
 
 local Tab = Window:CreateTab({
