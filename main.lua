@@ -3,7 +3,7 @@ local Luna = loadstring(game:HttpGet("https://raw.githubusercontent.com/Nebula-S
 local Window = Luna:CreateWindow({
 	Name = "Saturn Hub",
 	Subtitle = nil,
-	LogoID = "97745471148406",
+	LogoID = "rbxassetid://109296600971739",
 	LoadingEnabled = true,
 	LoadingTitle = "Saturn Hub",
 	LoadingSubtitle = "by coolio",
@@ -24,16 +24,15 @@ local Window = Luna:CreateWindow({
 		SecondAction = {
 			Enabled = false,
 			Type = "Link",
-			Parameter = "https://discord.com/invite/TyevewM7Jc"
+			Parameter = "https://discord.gg/TyevewM7Jc"
 		}
 	}
 })
 
-local Tab = Window:CreateTab({
-	Name = "Home",
-	Icon = "view_in_ar",
-	ImageSource = "Material",
-	ShowTitle = true
+Window:CreateHomeTab({
+	SupportedExecutors = nil,
+	DiscordInvite = "TyevewM7Jc",
+	Icon = 1,
 })
 
 local Tab = Window:CreateTab({
@@ -60,6 +59,13 @@ local Button = Tab:CreateButton({
     	end
 })
 
+Luna:Notification({ 
+	Title = "Saturn Hub",
+	Icon = "notifications_active",
+	ImageSource = "Material",
+	Content = "Executed Infinite Yield"
+})
+
 local Button = Tab:CreateButton({
 	Name = "Nameless Admin",
 	Description = nil,
@@ -68,12 +74,26 @@ local Button = Tab:CreateButton({
     	end
 })
 
+Luna:Notification({ 
+	Title = "Saturn Hub",
+	Icon = "notifications_active",
+	ImageSource = "Material",
+	Content = "Executed Nameless Admin"
+})
+
 local Button = Tab:CreateButton({
 	Name = "AK Admin",
 	Description = nil,
     	Callback = function()
         loadstring(game:HttpGet("https://angelical.me/ak.lua"))()
     	end
+})
+
+Luna:Notification({ 
+	Title = "Saturn Hub",
+	Icon = "notifications_active",
+	ImageSource = "Material",
+	Content = "Executed AK Admin"
 })
 
 Tab:CreateDivider()
@@ -104,12 +124,26 @@ local Button = Tab:CreateButton({
     	end
 })
 
+Luna:Notification({ 
+	Title = "Saturn Hub",
+	Icon = "notifications_active",
+	ImageSource = "Material",
+	Content = "Executed Speed Hub X"
+})
+
 local Button = Tab:CreateButton({
 	Name = "Forge Hub",
 	Description = nil,
     	Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Skzuppy/forge-hub/main/loader.lua"))()
     	end
+})
+
+Luna:Notification({ 
+	Title = "Saturn Hub",
+	Icon = "notifications_active",
+	ImageSource = "Material",
+	Content = "Executed Forge Hub"
 })
 
 local Tab = Window:CreateTab({
@@ -119,6 +153,16 @@ local Tab = Window:CreateTab({
 	ShowTitle = true
 })
 
-Tab:CreateSection("Other")
+local Label = Tab:CreateLabel({
+	Text = "Version: 1.0.1",
+	Style = 2
+})
+
+local Label = Tab:CreateLabel({
+	Text = "Updated: 6/13/2025",
+	Style = 2
+})
+
+Tab:BuildConfigSection()
 
 Luna:LoadAutoloadConfig()
