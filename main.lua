@@ -13,7 +13,7 @@ local Window = Luna:CreateWindow({
 		ConfigFolder = "SaturnHub"
 	},
 	
-	KeySystem = true,
+	KeySystem = false,
 	KeySettings = {
 		Title = "Saturn Hub",
 		Subtitle = "Key System",
@@ -118,5 +118,7 @@ local Tab = Window:CreateTab({
 	ImageSource = "Material",
 	ShowTitle = true
 })
+
+Tab:CreateSection("Other")
 
 Luna:LoadAutoloadConfig()
