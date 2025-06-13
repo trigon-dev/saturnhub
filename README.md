@@ -3,5 +3,5 @@
 ## Loadstring
 
 ```lua
-loadstring(game:HttpGet("https://raw.githubusercontent.com/trigon-dev/saturnhub/refs/heads/main/main.lua?token=GHSAT0AAAAAADFSFPEXK7BTMSRU32CG5O4K2CMUWWA"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/trigon-dev/saturnhub/refs/heads/main/main.lua"))()
 ```
