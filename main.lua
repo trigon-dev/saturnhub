@@ -5,7 +5,7 @@ local Window = Luna:CreateWindow({
 	Subtitle = nil,
 	LogoID = "86704560187347",
 	LoadingEnabled = true,
-	LoadingTitle = "Saturn Hub is loading",
+	LoadingTitle = "Saturn Hub",
 	LoadingSubtitle = "by coolio",
 
 	ConfigSettings = {
