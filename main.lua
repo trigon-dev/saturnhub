@@ -30,7 +30,7 @@ local Window = Luna:CreateWindow({
 })
 
 Window:CreateHomeTab({
-	SupportedExecutors = nil,
+	SupportedExecutors = {},
 	DiscordInvite = "TyevewM7Jc",
 	Icon = 1,
 })
@@ -119,13 +119,6 @@ local Tab = Window:CreateTab({
 	ShowTitle = true
 })
 
-local Tab = Window:CreateTab({
-	Name = "Config",
-	Icon = "view_in_ar",
-	ImageSource = "Material",
-	ShowTitle = true
-})
-
 local Label = Tab:CreateLabel({
 	Text = "Version: 1.0.1",
 	Style = 2
@@ -136,6 +129,22 @@ local Label = Tab:CreateLabel({
 	Style = 2
 })
 
-Settings:BuildConfigSection()
+local Tab = Window:CreateTab({
+	Name = "Configs",
+	Icon = "view_in_ar",
+	ImageSource = "Material",
+	ShowTitle = true
+})
+
+Configs:BuildConfigSection()
+
+local Tab = Window:CreateTab({
+	Name = "Settings",
+	Icon = "view_in_ar",
+	ImageSource = "Material",
+	ShowTitle = true
+})
+
+Settings:BuildThemeSection()
 
 Luna:LoadAutoloadConfig()
