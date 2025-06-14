@@ -15,15 +15,15 @@ local Window = Luna:CreateWindow({
 	
 	KeySystem = false,
 	KeySettings = {
-		Title = "Saturn Hub",
-		Subtitle = "Key System",
+		Title = "",
+		Subtitle = "",
 		Note = "",
 		SaveInRoot = false,
 		SaveKey = false, 
 		Key = {""},
 		SecondAction = {
 			Enabled = false,
-			Type = "Link",
+			Type = "",
 			Parameter = ""
 		}
 	}
@@ -145,7 +145,7 @@ local Tab = Window:CreateTab({
 })
 
 local Bind = Tab:CreateBind({
-	Name = "Saturn Hub Bind",
+	Name = "Bind",
 	Description = nil,
 	CurrentBind = "K",
 	HoldToInteract = false,
@@ -164,6 +164,3 @@ local Button = Tab:CreateButton({
         Luna:Destroy()
     	end
 })
-
-Settings:BuildThemeSection()
-Luna:LoadAutoloadConfig()
