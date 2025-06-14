@@ -18,11 +18,12 @@ local function fetchSupportedGames()
 end
 
 -- Universal fallback tab UI
-local function runUniversalFallback(Window)
-    Window:Notify({
+local function runUniversalFallback(Window, Luna)
+    Luna:Notification({
         Title = "Unsupported Game",
-        Description = "Loading Universal fallback tab.",
-        Duration = 5
+        Icon = "notifications_active",
+        ImageSource = "Material",
+        Content = "Loading Universal fallback tab."
     })
 
     local UniversalTab = Window:CreateTab({
@@ -85,20 +86,21 @@ local function runUniversalFallback(Window)
 end
 
 -- Detect and run game-specific script
-local function runDetectedGame(Window, supportedGames)
+local function runDetectedGame(Window, Luna, supportedGames)
     local gameId = game.PlaceId
     local gameData = supportedGames[gameId]
     if gameData then
-        Window:Notify({
+        Luna:Notification({
             Title = "Game Detected",
-            Description = "Detected supported game: " .. gameData.Name,
-            Duration = 5
+            Icon = "notifications_active",
+            ImageSource = "Material",
+            Content = "Detected supported game: " .. gameData.Name
         })
         if type(gameData.ScriptURL) == "string" then
             loadstring(game:HttpGet(gameData.ScriptURL))()
         end
     else
-        runUniversalFallback(Window)
+        runUniversalFallback(Window, Luna)
     end
 end
 
@@ -140,5 +142,5 @@ Window:CreateTab({
 
 -- Automatically detect game and run script or fallback UI
 task.defer(function()
-    runDetectedGame(Window, supportedGames)
+    runDetectedGame(Window, Luna, supportedGames)
 end)
