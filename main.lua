@@ -85,61 +85,6 @@ Window:CreateHomeTab({
     Icon               = 1
 })
 
-local function addAdvancedControls(tab)
-    tab:CreateSection("Advanced Controls")
-    tab:CreateToggle({
-        Name    = "Enable God Mode",
-        Default = false,
-        Callback = function(state)
-            print("God Mode is now", state)
-        end
-    })
-    tab:CreateSlider({
-        Name      = "Walk Speed",
-        Min       = 16,
-        Max       = 100,
-        Default   = 16,
-        Precision = 1,
-        Callback  = function(value)
-            if Players.LocalPlayer.Character and Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
-                Players.LocalPlayer.Character.Humanoid.WalkSpeed = value
-            end
-        end
-    })
-    tab:CreateTextbox({
-        Name                       = "Custom Message",
-        Placeholder                = "Type here…",
-        Default                    = "",
-        RemoveTextAfterFocusLost   = false,
-        Callback                   = function(text)
-            print("Textbox input:", text)
-        end
-    })
-    tab:CreateDropdown({
-        Name    = "Choose Team",
-        Options = {"Red", "Blue", "Green"},
-        Default = "Red",
-        Callback = function(choice)
-            print("Team selected:", choice)
-        end
-    })
-    tab:CreateKeybind({
-        Name     = "Toggle UI",
-        Default  = Enum.KeyCode.RightControl,
-        Mode     = "Toggle",
-        Callback = function()
-            Window:Toggle()
-        end
-    })
-    tab:CreateColorPicker({
-        Name    = "UI Accent Color",
-        Default = Color3.fromRGB(255,255,255),
-        Callback = function(color)
-            Window:SetAccentColor(color)
-        end
-    })
-end
-
 local function runUniversalFallback()
     local universalTab = Window:CreateTab({
         Name        = "Universal",
@@ -176,7 +121,6 @@ local function runUniversalFallback()
     universalTab:CreateButton({ Name = "Rejoin",      Callback = rejoin      })
     universalTab:CreateButton({ Name = "Serverhop",    Callback = serverhop    })
     universalTab:CreateButton({ Name = "Small Server", Callback = smallServer })
-    addAdvancedControls(universalTab)
 end
 
 local function runDetectedGame()
@@ -190,32 +134,17 @@ local function runDetectedGame()
             ShowTitle   = true
         })
         gamesTab:CreateSection("Scripts")
-        local scriptNames = {}
-        for _, s in ipairs(gameData.Scripts) do
-            table.insert(scriptNames, s.Name)
-        end
-        local selected = scriptNames[1]
-        gamesTab:CreateDropdown({
-            Name    = "Choose Script",
-            Options = scriptNames,
-            Default = selected,
-            Callback = function(choice)
-                selected = choice
-            end
-        })
         gamesTab:CreateButton({
             Name = "Run Script",
             Callback = function()
-                for _, s in ipairs(gameData.Scripts) do
-                    if s.Name == selected then
-                        loadstring(game:HttpGet(s.URL, true))()
-                        return
-                    end
+                local s = gameData.Scripts[1]
+                if s and s.URL ~= "" then
+                    loadstring(game:HttpGet(s.URL, true))()
+                else
+                    warn("No script URL found.")
                 end
-                warn("No matching script URL found for “" .. selected .. "”")
             end
         })
-        addAdvancedControls(gamesTab)
     else
         runUniversalFallback()
     end
