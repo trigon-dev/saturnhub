@@ -1,5 +1,5 @@
 -- CONFIGURE THESE URLS
-local pastebinGamesURL = "https://pastebin.com/raw/7P7BEmKP"
+local pastebinGamesURL = "https://pastebin.com/raw/YOUR_GAMES_PASTE_ID"
 
 -- Fetch supported games list from Pastebin
 local function fetchSupportedGames()
@@ -19,7 +19,11 @@ end
 
 -- Universal fallback tab UI
 local function runUniversalFallback(Window)
-    print("Unsupported game detected. Loading Universal tab...")
+    Window:Notify({
+        Title = "Unsupported Game",
+        Description = "Loading Universal fallback tab.",
+        Duration = 5
+    })
 
     local UniversalTab = Window:CreateTab({
         Name = "Universal",
@@ -85,12 +89,15 @@ local function runDetectedGame(Window, supportedGames)
     local gameId = game.PlaceId
     local gameData = supportedGames[gameId]
     if gameData then
-        print("Detected supported game:", gameData.Name)
+        Window:Notify({
+            Title = "Game Detected",
+            Description = "Detected supported game: " .. gameData.Name,
+            Duration = 5
+        })
         if type(gameData.ScriptURL) == "string" then
             loadstring(game:HttpGet(gameData.ScriptURL))()
         end
     else
-        warn("Unsupported game.")
         runUniversalFallback(Window)
     end
 end
