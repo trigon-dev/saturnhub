@@ -1,16 +1,14 @@
--- Hard‑coded supported games list
 local supportedGames = {
     [3823781113] = {
         Name      = "Saber Simulator",
-        ScriptURL = "https://rawscripts.net/raw/Saber-Simulator-SUMMER-SUMMER-EVENT-AUTO-FARM-AUTO-BUY-AUTO-BOSS-41970"
+        ScriptURL = "https://rawscripts.net/raw/Saber-Simulator-REVAMP-Op-Gui-41756"
     },
-    [126884695634066] = {                -- example corrected PlaceId
+    [126884695634066] = {
         Name      = "Grow a Garden",
         ScriptURL = "https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua"
     }
 }
 
--- Universal fallback tab UI
 local function runUniversalFallback(Window, Luna)
     Luna:Notification({
         Title       = "Unsupported Game",
@@ -72,7 +70,6 @@ local function runUniversalFallback(Window, Luna)
     })
 end
 
--- Detect and run game‑specific script (and create its tab)
 local function runDetectedGame(Window, Luna)
     local gameId   = game.PlaceId
     local gameData = supportedGames[gameId]
@@ -85,7 +82,6 @@ local function runDetectedGame(Window, Luna)
             Content     = "Detected supported game: " .. gameData.Name
         })
 
-        -- Create the Games tab only for supported titles
         local GamesTab = Window:CreateTab({
             Name        = "Games",
             Icon        = "view_in_ar",
@@ -93,7 +89,6 @@ local function runDetectedGame(Window, Luna)
             ShowTitle   = true
         })
 
-        -- You can add multiple buttons per game; here’s one for the detected game:
         GamesTab:CreateButton({
             Name     = gameData.Name,
             Callback = function()
@@ -105,7 +100,6 @@ local function runDetectedGame(Window, Luna)
     end
 end
 
--- Load Luna UI
 local Luna = loadstring(game:HttpGet(
     "https://raw.githubusercontent.com/Nebula-Softworks/Luna-Interface-Suite/main/source.lua",
     true
@@ -125,14 +119,12 @@ local Window = Luna:CreateWindow({
     KeySystem = false
 })
 
--- Always include Home (Luna requirement)
 Window:CreateHomeTab({
     SupportedExecutors = {},
     DiscordInvite     = "TyevewM7Jc",
     Icon               = 1
 })
 
--- Auto‑detect on load
 task.defer(function()
     runDetectedGame(Window, Luna)
 end)
