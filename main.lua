@@ -13,17 +13,17 @@ local Window = Luna:CreateWindow({
 		ConfigFolder = "saturnhub"
 	},
 	
-	KeySystem = false,
+	KeySystem = true,
 	KeySettings = {
-		Title = "",
-		Subtitle = "",
+		Title = "Saturn Hub",
+		Subtitle = "Key System",
 		Note = "",
 		SaveInRoot = false,
-		SaveKey = false, 
-		Key = {""},
+		SaveKey = true, 
+		Key = {"release"},
 		SecondAction = {
 			Enabled = false,
-			Type = "",
+			Type = "Link",
 			Parameter = ""
 		}
 	}
@@ -52,7 +52,7 @@ local Button = Tab:CreateButton({
 })
 
 local Tab = Window:CreateTab({
-	Name = "Univeral",
+	Name = "Universal",
 	Icon = "view_in_ar",
 	ImageSource = "Material",
 	ShowTitle = true
