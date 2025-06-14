@@ -1,18 +1,5 @@
 -- CONFIGURE THESE URLS
-local pastebinKeyURL = "https://pastebin.com/raw/nANC0S82"
 local pastebinGamesURL = "https://pastebin.com/raw/7P7BEmKP"
-
--- Fetch the key from Pastebin
-local function fetchKey()
-    local success, response = pcall(function()
-        return game:HttpGet(pastebinKeyURL)
-    end)
-    if success and response and response ~= "" then
-        return response
-    else
-        return nil
-    end
-end
 
 -- Fetch supported games list from Pastebin
 local function fetchSupportedGames()
@@ -111,7 +98,6 @@ end
 -- Load Luna UI
 local Luna = loadstring(game:HttpGet("https://raw.githubusercontent.com/Nebula-Softworks/Luna-Interface-Suite/main/source.lua", true))()
 
-local dynamicKey = fetchKey() or "default-key"
 local supportedGames = fetchSupportedGames()
 
 local Window = Luna:CreateWindow({
@@ -127,20 +113,7 @@ local Window = Luna:CreateWindow({
         ConfigFolder = "saturnhub"
     },
 
-    KeySystem = true,
-    KeySettings = {
-        Title = "Saturn Hub",
-        Subtitle = "Key System",
-        Note = "Auto-detected key",
-        SaveInRoot = false,
-        SaveKey = true,
-        Key = {dynamicKey},
-        SecondAction = {
-            Enabled = false,
-            Type = "Link",
-            Parameter = ""
-        }
-    }
+    KeySystem = false -- disabled
 })
 
 -- Create a basic Home tab for UI completeness
@@ -150,7 +123,7 @@ Window:CreateHomeTab({
     Icon = 1,
 })
 
--- Create a Games tab (optional, you can add more)
+-- Create a Games tab (optional)
 Window:CreateTab({
     Name = "Games",
     Icon = "view_in_ar",
