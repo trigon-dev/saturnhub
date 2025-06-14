@@ -1,4 +1,3 @@
--- Hard‑coded supported games list
 local supportedGames = {
     [3823781113] = {
         Name      = "Saber Simulator",
@@ -10,12 +9,10 @@ local supportedGames = {
     }
 }
 
--- Roblox services
 local TeleportService = game:GetService("TeleportService")
 local Players         = game:GetService("Players")
 local HttpService     = game:GetService("HttpService")
 
--- Server utilities
 local function rejoin()
     TeleportService:Teleport(game.PlaceId, Players.LocalPlayer)
 end
@@ -46,7 +43,6 @@ local function smallServer()
     end
 end
 
--- Universal fallback tab UI
 local function runUniversalFallback(Window, Luna)
     Luna:Notification({
         Title       = "Unsupported Game",
@@ -96,7 +92,6 @@ local function runUniversalFallback(Window, Luna)
     UniversalTab:CreateButton({ Name = "Small Server", Callback = smallServer })
 end
 
--- Detect and run game‑specific script (and create its tab)
 local function runDetectedGame(Window, Luna)
     local gameId   = game.PlaceId
     local gameData = supportedGames[gameId]
@@ -127,7 +122,6 @@ local function runDetectedGame(Window, Luna)
     end
 end
 
--- Load Luna UI
 local Luna = loadstring(game:HttpGet(
     "https://raw.githubusercontent.com/Nebula-Softworks/Luna-Interface-Suite/main/source.lua",
     true
@@ -155,7 +149,6 @@ Window:CreateHomeTab({
     Icon               = 1
 })
 
--- Auto‑detect on load
 task.defer(function()
     runDetectedGame(Window, Luna)
 end)
