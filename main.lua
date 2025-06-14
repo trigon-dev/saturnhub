@@ -2,16 +2,21 @@ local supportedGames = {
     [3823781113] = {
         Name    = "Saber Simulator",
         Scripts = {
-            { Name = "Re‑Revamp GUI",   URL = "https://rawscripts.net/raw/Saber-Simulator-REVAMP-Op-Gui-41756" },
-            { Name = "XP Farm Script",  URL = "https://example.com/saber-xp-farm.lua" },
-            { Name = "Infinite Blades", URL = "https://example.com/saber-infinite-blades.lua" },
+            { Name = "1",      URL = "https://rawscripts.net/raw/Saber-Simulator-REVAMP-Op-Gui-41756" },
+            { Name = "2",      URL = "" },
+            { Name = "3",      URL = "" },
+            { Name = "4",      URL = "" },
+            { Name = "5",      URL = "" },
         }
     },
     [126884695634066] = {
         Name    = "Grow a Garden",
         Scripts = {
-            { Name = "Speed Hub X",      URL = "https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua" },
-            { Name = "Auto‑Harvest Bot", URL = "https://example.com/growagarden-autobot.lua" },
+            { Name = "1",      URL = "https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua" },
+            { Name = "2",      URL = "" },
+            { Name = "3",      URL = "" },
+            { Name = "4",      URL = "" },
+            { Name = "5",      URL = "" },
         }
     }
 }
