@@ -129,7 +129,7 @@ local Luna = loadstring(game:HttpGet(
 
 local Window = Luna:CreateWindow({
     Name            = "Saturn Hub",
-    Subtitle        = "BETA",
+    Subtitle        = "v1.0",
     LogoID          = "86704560187347",
     LoadingEnabled  = true,
     LoadingTitle    = "Saturn Hub",
