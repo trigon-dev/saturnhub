@@ -1,39 +1,37 @@
-local supportedGames = {
-    [3823781113] = {
-        Name    = "Saber Simulator",
-        Scripts = {
-            { Name = "1",      URL = "https://rawscripts.net/raw/Saber-Simulator-REVAMP-Op-Gui-41756" },
-            { Name = "2",      URL = "" },
-            { Name = "3",      URL = "" },
-            { Name = "4",      URL = "" },
-            { Name = "5",      URL = "" }
-        }
-    },
-    [126884695634066] = {
-        Name    = "Grow a Garden",
-        Scripts = {
-            { Name = "1",      URL = "https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua" },
-            { Name = "2",      URL = "" },
-            { Name = "3",      URL = "" },
-            { Name = "4",      URL = "" },
-            { Name = "5",      URL = "" }
-        }
-    },
-    [13127800756] = {
-        Name    = "Arm Wrestle Simulator",
-        Scripts = {
-            { Name = "1",      URL = "" },
-            { Name = "2",      URL = "" },
-            { Name = "3",      URL = "" },
-            { Name = "4",      URL = "" },
-            { Name = "5",      URL = "" }
+local supportedGameGroups = {
+    Simulators = {
+        { 
+            ID = 3823781113,
+            Name = "Saber Simulator",
+            Scripts = {
+                { Name = "Script 1", URL = "https://rawscripts.net/raw/Saber-Simulator-REVAMP-Op-Gui-41756" },
+                { Name = "Script 2", URL = "" },
+                { Name = "Script 3", URL = "" },
+                { Name = "Script 4", URL = "" },
+                { Name = "Script 5", URL = "" }
+            }
+        },
+        { 
+            ID = 126884695634066,
+            Name = "Grow a Garden",
+            Scripts = {
+                { Name = "Script 1", URL = "https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua" },
+                { Name = "Script 2", URL = "" }
+            }
+        },
+        {
+            ID = 13127800756,
+            Name = "Arm Wrestle Simulator",
+            Scripts = {
+                { Name = "Script 1", URL = "" }
+            }
         }
     }
 }
 
 local TeleportService = game:GetService("TeleportService")
-local Players         = game:GetService("Players")
-local HttpService     = game:GetService("HttpService")
+local Players = game:GetService("Players")
+local HttpService = game:GetService("HttpService")
 
 local function rejoin()
     TeleportService:Teleport(game.PlaceId, Players.LocalPlayer)
@@ -60,48 +58,37 @@ local function smallServer()
         return HttpService:JSONDecode(game:HttpGet(url)).data
     end)
     if success and data and #data > 0 then
-        table.sort(data, function(a,b) return a.playing < b.playing end)
+        table.sort(data, function(a, b) return a.playing < b.playing end)
         TeleportService:TeleportToPlaceInstance(game.PlaceId, data[1].id, Players.LocalPlayer)
     end
 end
 
-local Luna = loadstring(game:HttpGet(
-    "https://raw.githubusercontent.com/Nebula-Softworks/Luna-Interface-Suite/main/source.lua",
-    true
-))()
+local Luna = loadstring(game:HttpGet("https://raw.githubusercontent.com/Nebula-Softworks/Luna-Interface-Suite/main/source.lua", true))()
 
 local Window = Luna:CreateWindow({
-    Name            = "Saturn Hub",
-    Subtitle        = "v1.0",
-    LogoID          = "7251671408",
-    LoadingEnabled  = true,
-    LoadingTitle    = "Saturn Hub",
+    Name = "Saturn Hub",
+    Subtitle = "v1.0",
+    LogoID = "7251671408",
+    LoadingEnabled = true,
+    LoadingTitle = "Saturn Hub",
     LoadingSubtitle = "by coolio",
-    ConfigSettings  = {
-        RootFolder   = nil,
-        ConfigFolder = "saturnhub"
-    },
     KeySystem = false
 })
 
-Window:LoadConfig()
-Window:OnClose(function()
-    Window:SaveConfig()
-end)
-
 Window:CreateHomeTab({
     SupportedExecutors = {},
-    DiscordInvite     = "TyevewM7Jc",
-    Icon               = 1
+    DiscordInvite = "TyevewM7Jc",
+    Icon = 1
 })
 
 local function runUniversalFallback()
     local universalTab = Window:CreateTab({
-        Name        = "Universal",
-        Icon        = "view_in_ar",
+        Name = "Universal",
+        Icon = "view_in_ar",
         ImageSource = "Material",
-        ShowTitle   = true
+        ShowTitle = true
     })
+
     universalTab:CreateSection("Admin")
     universalTab:CreateButton({ Name = "Infinite Yield", Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
@@ -112,12 +99,13 @@ local function runUniversalFallback()
     universalTab:CreateButton({ Name = "AK Admin", Callback = function()
         loadstring(game:HttpGet("https://angelical.me/ak.lua"))()
     end })
+
     universalTab:CreateDivider()
     universalTab:CreateSection("FE")
     universalTab:CreateButton({ Name = "Stalkie", Callback = function()
-        repeat task.wait() until Players.LocalPlayer
         loadstring(game:HttpGet("https://raw.githubusercontent.com/0riginalWarrior/Stalkie/refs/heads/main/roblox.lua"))()
     end })
+
     universalTab:CreateDivider()
     universalTab:CreateSection("Script Hubs")
     universalTab:CreateButton({ Name = "Speed Hub X", Callback = function()
@@ -126,36 +114,76 @@ local function runUniversalFallback()
     universalTab:CreateButton({ Name = "Forge Hub", Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Skzuppy/forge-hub/main/loader.lua"))()
     end })
+
     universalTab:CreateDivider()
     universalTab:CreateSection("Server Utilities")
-    universalTab:CreateButton({ Name = "Rejoin",      Callback = rejoin      })
-    universalTab:CreateButton({ Name = "Serverhop",    Callback = serverhop    })
+    universalTab:CreateButton({ Name = "Rejoin", Callback = rejoin })
+    universalTab:CreateButton({ Name = "Serverhop", Callback = serverhop })
     universalTab:CreateButton({ Name = "Small Server", Callback = smallServer })
 end
 
 local function runDetectedGame()
-    local gameId   = game.PlaceId
-    local gameData = supportedGames[gameId]
-    if gameData then
-        local gamesTab = Window:CreateTab({
-            Name        = "Games",
-            Icon        = "view_in_ar",
+    local gameId = game.PlaceId
+    local currentGameFound = false
+
+    for categoryName, games in pairs(supportedGameGroups) do
+        local tab = Window:CreateTab({
+            Name = categoryName,
+            Icon = "view_in_ar",
             ImageSource = "Material",
-            ShowTitle   = true
+            ShowTitle = true
         })
-        gamesTab:CreateSection("Scripts")
-        gamesTab:CreateButton({
-            Name = "Run Script",
-            Callback = function()
-                local s = gameData.Scripts[1]
-                if s and s.URL ~= "" then
-                    loadstring(game:HttpGet(s.URL, true))()
-                else
-                    warn("No script URL found.")
+
+        local gameOptions = {}
+        local gameMap = {}
+        for _, game in ipairs(games) do
+            table.insert(gameOptions, game.Name)
+            gameMap[game.Name] = game
+        end
+
+        local scriptDropdown = nil
+
+        tab:CreateDropdown({
+            Name = "Select Game",
+            Options = gameOptions,
+            Callback = function(gameName)
+                local selectedGame = gameMap[gameName]
+                if selectedGame then
+                    if scriptDropdown then scriptDropdown:Destroy() end
+                    local scriptOptions = {}
+                    local scriptMap = {}
+                    for _, script in ipairs(selectedGame.Scripts) do
+                        if script.URL and script.URL ~= "" then
+                            table.insert(scriptOptions, script.Name)
+                            scriptMap[script.Name] = script.URL
+                        end
+                    end
+                    if #scriptOptions == 0 then
+                        scriptDropdown = tab:CreateLabel("No scripts available for this game.")
+                    else
+                        scriptDropdown = tab:CreateDropdown({
+                            Name = "Select Script",
+                            Options = scriptOptions,
+                            Callback = function(scriptName)
+                                local url = scriptMap[scriptName]
+                                if url then
+                                    loadstring(game:HttpGet(url, true))()
+                                end
+                            end
+                        })
+                    end
                 end
             end
         })
-    else
+
+        for _, game in ipairs(games) do
+            if game.ID == gameId then
+                currentGameFound = true
+            end
+        end
+    end
+
+    if not currentGameFound then
         runUniversalFallback()
     end
 end
