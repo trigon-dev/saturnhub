@@ -1,18 +1,21 @@
+-- Hard‑coded supported games list
 local supportedGames = {
     [3823781113] = {
         Name      = "Saber Simulator",
         ScriptURL = "https://rawscripts.net/raw/Saber-Simulator-REVAMP-Op-Gui-41756"
     },
-    [126884695634066] = {
+    [126884695634066] = {  -- corrected PlaceId
         Name      = "Grow a Garden",
         ScriptURL = "https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua"
     }
 }
 
+-- Roblox services
 local TeleportService = game:GetService("TeleportService")
 local Players         = game:GetService("Players")
 local HttpService     = game:GetService("HttpService")
 
+-- Server utilities
 local function rejoin()
     TeleportService:Teleport(game.PlaceId, Players.LocalPlayer)
 end
@@ -43,6 +46,7 @@ local function smallServer()
     end
 end
 
+-- Universal fallback tab UI
 local function runUniversalFallback(Window, Luna)
     Luna:Notification({
         Title       = "Unsupported Game",
@@ -92,6 +96,7 @@ local function runUniversalFallback(Window, Luna)
     UniversalTab:CreateButton({ Name = "Small Server", Callback = smallServer })
 end
 
+-- Detect and run game‑specific script (and create its tab)
 local function runDetectedGame(Window, Luna)
     local gameId   = game.PlaceId
     local gameData = supportedGames[gameId]
@@ -122,20 +127,23 @@ local function runDetectedGame(Window, Luna)
     end
 end
 
+-- Load Luna UI
 local Luna = loadstring(game:HttpGet(
     "https://raw.githubusercontent.com/Nebula-Softworks/Luna-Interface-Suite/main/source.lua",
     true
 ))()
 
 local Window = Luna:CreateWindow({
-    Name            = "Saturn Hub",
-    Subtitle        = "v1.0",
-    Logo            = 7251671408,
+    Name     = "Saturn Hub",
+    Subtitle = "v1.0",
 
-    Loading = {                                   
-        Enabled   = true,
-        Title     = "Saturn Hub",
-        Subtitle  = "by coolio"
+    Logo     = 7251671408,            -- numeric asset ID (your uploaded image)
+    -- Logo = "rbxassetid://7251671408",  -- or as a URL string
+
+    Loading = {
+        Enabled  = true,
+        Title    = "Saturn Hub",
+        Subtitle = "by coolio"
     },
 
     ConfigSettings = {
@@ -143,15 +151,17 @@ local Window = Luna:CreateWindow({
         ConfigFolder = "saturnhub"
     },
 
-    KeySystem = false                              -- disable key system entirely
+    KeySystem = false
 })
 
+-- Home tab (required by Luna)
 Window:CreateHomeTab({
     SupportedExecutors = {},
     DiscordInvite     = "TyevewM7Jc",
     Icon               = 1
 })
 
+-- Auto‑detect on load
 task.defer(function()
     runDetectedGame(Window, Luna)
 end)
