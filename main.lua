@@ -2,18 +2,18 @@ local Luna = loadstring(game:HttpGet("https://raw.githubusercontent.com/Nebula-S
 
 local Window = Luna:CreateWindow({
 	Name = "Saturn Hub",
-	Subtitle = nil,
-	LogoID = "rbxassetid://109296600971739",
+	Subtitle = "V1.0",
+	LogoID = "86704560187347",
 	LoadingEnabled = true,
 	LoadingTitle = "Saturn Hub",
 	LoadingSubtitle = "by coolio",
 
 	ConfigSettings = {
 		RootFolder = nil,
-		ConfigFolder = "saturnhub"
+		ConfigFolder = "SaturnHub"
 	},
 	
-	KeySystem = false,
+	KeySystem = true,
 	KeySettings = {
 		Title = "Saturn Hub",
 		Subtitle = "Key System",
@@ -22,15 +22,15 @@ local Window = Luna:CreateWindow({
 		SaveKey = true, 
 		Key = {"release"},
 		SecondAction = {
-			Enabled = false,
+			Enabled = true,
 			Type = "Link",
-			Parameter = "https://discord.gg/TyevewM7Jc"
+			Parameter = "https://pastebin.com/raw/q6wyqF0h"
 		}
 	}
 })
 
 Window:CreateHomeTab({
-	SupportedExecutors = {"Delta", "Krnl", "Visual", "Xeno", "Solara"},
+	SupportedExecutors = {},
 	DiscordInvite = "TyevewM7Jc",
 	Icon = 1,
 })
@@ -73,6 +73,7 @@ local Button = Tab:CreateButton({
 	Description = nil,
     	Callback = function()
         loadstring(game:HttpGet("https://angelical.me/ak.lua"))()
+	-- Get the latest key at https://ichfickdeinemutta.pages.dev/Lol.lua
     	end
 })
 
@@ -86,6 +87,7 @@ local Button = Tab:CreateButton({
     	Callback = function()
 	repeat task.wait() until game.Players.LocalPlayer
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/0riginalWarrior/Stalkie/refs/heads/main/roblox.lua"))()
+	-- The current key is "pizza"
     	end
 })
 
@@ -141,6 +143,29 @@ local Tab = Window:CreateTab({
 	ImageSource = "Material",
 	ShowTitle = true
 })
+
+local Bind = Tab:CreateBind({
+	Name = "Saturn Hub Bind",
+	Description = nil,
+	CurrentBind = "K",
+	HoldToInteract = false,
+    	Callback = function()
+    	end,
+
+	OnChangedCallback = function(Bind)
+	 Window.Bind = Bind
+	end,
+}, "WindowMenuBind")
+
+local Button = Tab:CreateButton({
+	Name = "Destroy UI",
+	Description = nil,
+    	Callback = function()
+        Luna:Destroy()
+    	end
+})
+
+Tab:CreateDivider()
 
 Settings:BuildThemeSection()
 
