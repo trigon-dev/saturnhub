@@ -130,18 +130,14 @@ local Luna = loadstring(game:HttpGet(
 local Window = Luna:CreateWindow({
     Name            = "Saturn Hub",
     Subtitle        = "v1.0",
-    LogoID          = "86704560187347",
+    Logo            = 7251671408,
     LoadingEnabled  = true,
     LoadingTitle    = "Saturn Hub",
     LoadingSubtitle = "by coolio",
-
-    ConfigSettings = {
-        RootFolder   = nil,
-        ConfigFolder = "saturnhub"
-    },
-
-    KeySystem = false
+    ConfigSettings = { RootFolder = nil, ConfigFolder = "saturnhub" },
+    KeySystem       = false
 })
+
 
 Window:CreateHomeTab({
     SupportedExecutors = {},
