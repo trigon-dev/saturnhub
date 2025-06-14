@@ -2,7 +2,7 @@ local Luna = loadstring(game:HttpGet("https://raw.githubusercontent.com/Nebula-S
 
 local Window = Luna:CreateWindow({
 	Name = "Saturn Hub",
-	Subtitle = "V1.0",
+	Subtitle = "BETA",
 	LogoID = "86704560187347",
 	LoadingEnabled = true,
 	LoadingTitle = "Saturn Hub",
@@ -121,23 +121,6 @@ local Button = Tab:CreateButton({
 })
 
 local Tab = Window:CreateTab({
-	Name = "Info",
-	Icon = "view_in_ar",
-	ImageSource = "Material",
-	ShowTitle = true
-})
-
-local Label = Tab:CreateLabel({
-	Text = "Version: 1.0.1",
-	Style = 2
-})
-
-local Label = Tab:CreateLabel({
-	Text = "Updated: 6/13/2025",
-	Style = 2
-})
-
-local Tab = Window:CreateTab({
 	Name = "Settings",
 	Icon = "view_in_ar",
 	ImageSource = "Material",
@@ -163,4 +146,21 @@ local Button = Tab:CreateButton({
     	Callback = function()
         Luna:Destroy()
     	end
+})
+
+local Tab = Window:CreateTab({
+	Name = "Info",
+	Icon = "view_in_ar",
+	ImageSource = "Material",
+	ShowTitle = true
+})
+
+local Label = Tab:CreateLabel({
+	Text = "Version: 1.0.1",
+	Style = 2
+})
+
+local Label = Tab:CreateLabel({
+	Text = "Updated: 6/13/2025",
+	Style = 2
 })
