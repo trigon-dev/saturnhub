@@ -42,6 +42,15 @@ local Tab = Window:CreateTab({
 	ShowTitle = true
 })
 
+local Button = Tab:CreateButton({
+	Name = "Saber Simulator",
+	Description = nil,
+    	Callback = function()
+        loadstring(game:HttpGet("https://rawscripts.net/raw/Saber-Simulator-SUMMER-SUMMER-EVENT-AUTO-FARM-AUTO-BUY-AUTO-BOSS-41970"))()
+	loadstring(game:HttpGet("https://rawscripts.net/raw/Saber-Simulator-REVAMP-Op-Gui-41756"))()
+    	end
+})
+
 local Tab = Window:CreateTab({
 	Name = "Univeral",
 	Icon = "view_in_ar",
