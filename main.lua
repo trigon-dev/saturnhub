@@ -6,7 +6,7 @@ local supportedGames = {
             { Name = "2",      URL = "" },
             { Name = "3",      URL = "" },
             { Name = "4",      URL = "" },
-            { Name = "5",      URL = "" },
+            { Name = "5",      URL = "" }
         }
     },
     [126884695634066] = {
@@ -16,7 +16,17 @@ local supportedGames = {
             { Name = "2",      URL = "" },
             { Name = "3",      URL = "" },
             { Name = "4",      URL = "" },
-            { Name = "5",      URL = "" },
+            { Name = "5",      URL = "" }
+        }
+    },
+    [13127800756] = {
+        Name    = "Arm Wrestle Simulator",
+        Scripts = {
+            { Name = "1",      URL = "" },
+            { Name = "2",      URL = "" },
+            { Name = "3",      URL = "" },
+            { Name = "4",      URL = "" },
+            { Name = "5",      URL = "" }
         }
     }
 }
