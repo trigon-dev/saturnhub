@@ -30,7 +30,7 @@ local Window = Luna:CreateWindow({
 })
 
 Window:CreateHomeTab({
-	SupportedExecutors = {},
+	SupportedExecutors = {"Delta", "Krnl", "Visual", "Xeno", "Solara"},
 	DiscordInvite = "TyevewM7Jc",
 	Icon = 1,
 })
@@ -80,17 +80,14 @@ Tab:CreateDivider()
 
 Tab:CreateSection("FE")
 
---[[
-
 local Button = Tab:CreateButton({
-	Name = "",
+	Name = "Stalkie",
 	Description = nil,
     	Callback = function()
-        
+	repeat task.wait() until game.Players.LocalPlayer
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/0riginalWarrior/Stalkie/refs/heads/main/roblox.lua"))()
     	end
 })
-
-]]
 
 Tab:CreateDivider()
 
