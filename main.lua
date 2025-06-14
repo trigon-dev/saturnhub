@@ -9,22 +9,22 @@ local Window = Luna:CreateWindow({
 	LoadingSubtitle = "by coolio",
 
 	ConfigSettings = {
-		RootFolder = nil,
+		RootFolder = "saturn",
 		ConfigFolder = "SaturnHub"
 	},
 	
-	KeySystem = true,
+	KeySystem = false,
 	KeySettings = {
 		Title = "Saturn Hub",
 		Subtitle = "Key System",
 		Note = "",
 		SaveInRoot = false,
-		SaveKey = true, 
-		Key = {"release"},
+		SaveKey = false, 
+		Key = {""},
 		SecondAction = {
-			Enabled = true,
+			Enabled = false,
 			Type = "Link",
-			Parameter = "https://pastebin.com/raw/q6wyqF0h"
+			Parameter = ""
 		}
 	}
 })
