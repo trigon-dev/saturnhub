@@ -1,5 +1,5 @@
 -- CONFIGURE THESE URLS
-local pastebinGamesURL = "https://pastebin.com/raw/YOUR_GAMES_PASTE_ID"
+local pastebinGamesURL = "https://pastebin.com/raw/7P7BEmKP"
 
 -- Fetch supported games list from Pastebin
 local function fetchSupportedGames()
