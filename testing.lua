@@ -1,56 +1,49 @@
--- CONFIGURE THESE URLS
-local pastebinGamesURL = "https://pastebin.com/raw/7P7BEmKP"
-
--- Fetch supported games list from Pastebin
-local function fetchSupportedGames()
-    local success, response = pcall(function()
-        return game:HttpGet(pastebinGamesURL)
-    end)
-    if success then
-        local successDecode, result = pcall(function()
-            return loadstring("return " .. response)()
-        end)
-        if successDecode and type(result) == "table" then
-            return result
-        end
-    end
-    return {}
-end
+-- Hard‑coded supported games list
+local supportedGames = {
+    [3823781113] = {
+        Name = "Saber Simulator",
+        ScriptURL = "https://rawscripts.net/raw/Saber-Simulator-SUMMER-SUMMER-EVENT-AUTO-FARM-AUTO-BUY-AUTO-BOSS-41970"
+    },
+    [126884695634066] = {
+        Name = "Grow a Garden",
+        ScriptURL = "https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua"
+    }
+}
 
 -- Universal fallback tab UI
 local function runUniversalFallback(Window, Luna)
     Luna:Notification({
-        Title = "Unsupported Game",
-        Icon = "notifications_active",
+        Title       = "Unsupported Game",
+        Icon        = "notifications_active",
         ImageSource = "Material",
-        Content = "Loading Universal fallback tab."
+        Content     = "Loading Universal fallback tab."
     })
 
     local UniversalTab = Window:CreateTab({
-        Name = "Universal",
-        Icon = "view_in_ar",
+        Name        = "Universal",
+        Icon        = "view_in_ar",
         ImageSource = "Material",
-        ShowTitle = true
+        ShowTitle   = true
     })
 
     UniversalTab:CreateSection("Admin")
 
     UniversalTab:CreateButton({
-        Name = "Infinite Yield",
+        Name     = "Infinite Yield",
         Callback = function()
             loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
         end
     })
 
     UniversalTab:CreateButton({
-        Name = "Nameless Admin",
+        Name     = "Nameless Admin",
         Callback = function()
             loadstring(game:HttpGet("https://raw.githubusercontent.com/ltseverydayyou/Nameless-Admin/main/Source.lua"))()
         end
     })
 
     UniversalTab:CreateButton({
-        Name = "AK Admin",
+        Name     = "AK Admin",
         Callback = function()
             loadstring(game:HttpGet("https://angelical.me/ak.lua"))()
         end
@@ -60,7 +53,7 @@ local function runUniversalFallback(Window, Luna)
     UniversalTab:CreateSection("FE")
 
     UniversalTab:CreateButton({
-        Name = "Stalkie",
+        Name     = "Stalkie",
         Callback = function()
             repeat task.wait() until game.Players.LocalPlayer
             loadstring(game:HttpGet("https://raw.githubusercontent.com/0riginalWarrior/Stalkie/refs/heads/main/roblox.lua"))()
@@ -71,76 +64,69 @@ local function runUniversalFallback(Window, Luna)
     UniversalTab:CreateSection("Script Hubs")
 
     UniversalTab:CreateButton({
-        Name = "Speed Hub X",
-        Callback = function()
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()
-        end
-    })
-
-    UniversalTab:CreateButton({
-        Name = "Forge Hub",
+        Name     = "Forge Hub",
         Callback = function()
             loadstring(game:HttpGet("https://raw.githubusercontent.com/Skzuppy/forge-hub/main/loader.lua"))()
         end
     })
 end
 
--- Detect and run game-specific script
-local function runDetectedGame(Window, Luna, supportedGames)
-    local gameId = game.PlaceId
+-- Detect and run game‑specific script
+local function runDetectedGame(Window, Luna)
+    local gameId   = game.PlaceId
     local gameData = supportedGames[gameId]
+
     if gameData then
         Luna:Notification({
-            Title = "Game Detected",
-            Icon = "notifications_active",
+            Title       = "Game Detected",
+            Icon        = "notifications_active",
             ImageSource = "Material",
-            Content = "Detected supported game: " .. gameData.Name
+            Content     = "Detected supported game: " .. gameData.Name
         })
-        if type(gameData.ScriptURL) == "string" then
-            loadstring(game:HttpGet(gameData.ScriptURL))()
-        end
+        loadstring(game:HttpGet(gameData.ScriptURL))()
     else
         runUniversalFallback(Window, Luna)
     end
 end
 
 -- Load Luna UI
-local Luna = loadstring(game:HttpGet("https://raw.githubusercontent.com/Nebula-Softworks/Luna-Interface-Suite/main/source.lua", true))()
-
-local supportedGames = fetchSupportedGames()
+local Luna = loadstring(game:HttpGet(
+    "https://raw.githubusercontent.com/Nebula-Softworks/Luna-Interface-Suite/main/source.lua",
+    true
+))()
 
 local Window = Luna:CreateWindow({
-    Name = "Saturn Hub",
-    Subtitle = "BETA",
-    LogoID = "86704560187347",
-    LoadingEnabled = true,
-    LoadingTitle = "Saturn Hub",
+    Name            = "Saturn Hub",
+    Subtitle        = "BETA",
+    LogoID          = "86704560187347",
+    LoadingEnabled  = true,
+    LoadingTitle    = "Saturn Hub",
     LoadingSubtitle = "by coolio",
 
     ConfigSettings = {
-        RootFolder = nil,
+        RootFolder   = nil,
         ConfigFolder = "saturnhub"
     },
 
-    KeySystem = false -- disabled
+    KeySystem = false
 })
 
--- Create a basic Home tab for UI completeness
+-- Home tab (required by Luna)
 Window:CreateHomeTab({
     SupportedExecutors = {},
-    DiscordInvite = "TyevewM7Jc",
-    Icon = 1,
+    DiscordInvite     = "TyevewM7Jc",
+    Icon               = 1
 })
 
--- Create a Games tab (optional)
+-- Basic extra tab (optional)
 Window:CreateTab({
-    Name = "Games",
-    Icon = "view_in_ar",
+    Name        = "Games",
+    Icon        = "view_in_ar",
     ImageSource = "Material",
-    ShowTitle = true
+    ShowTitle   = true
 })
 
--- Automatically detect game and run script or fallback UI
+-- Auto‑detect on load
 task.defer(function()
-    runDetectedGame(Window, Luna, supportedGames)
+    runDetectedGame(Window, Luna)
 end)
