@@ -1,11 +1,18 @@
 local supportedGames = {
     [3823781113] = {
-        Name      = "Saber Simulator",
-        ScriptURL = "https://rawscripts.net/raw/Saber-Simulator-REVAMP-Op-Gui-41756"
+        Name    = "Saber Simulator",
+        Scripts = {
+            { Name = "Re‑Revamp GUI",   URL = "https://rawscripts.net/raw/Saber-Simulator-REVAMP-Op-Gui-41756" },
+            { Name = "XP Farm Script",  URL = "https://example.com/saber-xp-farm.lua" },
+            { Name = "Infinite Blades", URL = "https://example.com/saber-infinite-blades.lua" },
+        }
     },
     [126884695634066] = {
-        Name      = "Grow a Garden",
-        ScriptURL = "https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua"
+        Name    = "Grow a Garden",
+        Scripts = {
+            { Name = "Speed Hub X",      URL = "https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua" },
+            { Name = "Auto‑Harvest Bot", URL = "https://example.com/growagarden-autobot.lua" },
+        }
     }
 }
 
@@ -43,85 +50,6 @@ local function smallServer()
     end
 end
 
-local function runUniversalFallback(Window, Luna)
-    Luna:Notification({
-        Title       = "Unsupported Game",
-        Icon        = "notifications_active",
-        ImageSource = "Material",
-        Content     = "Only the Universal tab is available."
-    })
-
-    local UniversalTab = Window:CreateTab({
-        Name        = "Universal",
-        Icon        = "view_in_ar",
-        ImageSource = "Material",
-        ShowTitle   = true
-    })
-
-    UniversalTab:CreateSection("Admin")
-    UniversalTab:CreateButton({ Name = "Infinite Yield", Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
-    end })
-    UniversalTab:CreateButton({ Name = "Nameless Admin", Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/ltseverydayyou/Nameless-Admin/main/Source.lua"))()
-    end })
-    UniversalTab:CreateButton({ Name = "AK Admin", Callback = function()
-        loadstring(game:HttpGet("https://angelical.me/ak.lua"))()
-    end })
-
-    UniversalTab:CreateDivider()
-    UniversalTab:CreateSection("FE")
-    UniversalTab:CreateButton({ Name = "Stalkie", Callback = function()
-        repeat task.wait() until Players.LocalPlayer
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/0riginalWarrior/Stalkie/refs/heads/main/roblox.lua"))()
-    end })
-
-    UniversalTab:CreateDivider()
-    UniversalTab:CreateSection("Script Hubs")
-    UniversalTab:CreateButton({ Name = "Speed Hub X", Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()
-    end })
-    UniversalTab:CreateButton({ Name = "Forge Hub", Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/Skzuppy/forge-hub/main/loader.lua"))()
-    end })
-
-    UniversalTab:CreateDivider()
-    UniversalTab:CreateSection("Server Utilities")
-    UniversalTab:CreateButton({ Name = "Rejoin",      Callback = rejoin      })
-    UniversalTab:CreateButton({ Name = "Serverhop",    Callback = serverhop    })
-    UniversalTab:CreateButton({ Name = "Small Server", Callback = smallServer })
-end
-
-local function runDetectedGame(Window, Luna)
-    local gameId   = game.PlaceId
-    local gameData = supportedGames[gameId]
-
-    if gameData then
-        Luna:Notification({
-            Title       = "Game Detected",
-            Icon        = "notifications_active",
-            ImageSource = "Material",
-            Content     = "Detected supported game: " .. gameData.Name
-        })
-
-        local GamesTab = Window:CreateTab({
-            Name        = "Games",
-            Icon        = "view_in_ar",
-            ImageSource = "Material",
-            ShowTitle   = true
-        })
-
-        GamesTab:CreateButton({
-            Name     = gameData.Name,
-            Callback = function()
-                loadstring(game:HttpGet(gameData.ScriptURL))()
-            end
-        })
-    else
-        runUniversalFallback(Window, Luna)
-    end
-end
-
 local Luna = loadstring(game:HttpGet(
     "https://raw.githubusercontent.com/Nebula-Softworks/Luna-Interface-Suite/main/source.lua",
     true
@@ -134,14 +62,17 @@ local Window = Luna:CreateWindow({
     LoadingEnabled  = true,
     LoadingTitle    = "Saturn Hub",
     LoadingSubtitle = "by coolio",
-
-    ConfigSettings = {
+    ConfigSettings  = {
         RootFolder   = nil,
         ConfigFolder = "saturnhub"
     },
-
     KeySystem = false
 })
+
+Window:LoadConfig()
+Window:OnClose(function()
+    Window:SaveConfig()
+end)
 
 Window:CreateHomeTab({
     SupportedExecutors = {},
@@ -149,6 +80,140 @@ Window:CreateHomeTab({
     Icon               = 1
 })
 
-task.defer(function()
-    runDetectedGame(Window, Luna)
-end)
+local function addAdvancedControls(tab)
+    tab:CreateSection("Advanced Controls")
+    tab:CreateToggle({
+        Name    = "Enable God Mode",
+        Default = false,
+        Callback = function(state)
+            print("God Mode is now", state)
+        end
+    })
+    tab:CreateSlider({
+        Name      = "Walk Speed",
+        Min       = 16,
+        Max       = 100,
+        Default   = 16,
+        Precision = 1,
+        Callback  = function(value)
+            if Players.LocalPlayer.Character and Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
+                Players.LocalPlayer.Character.Humanoid.WalkSpeed = value
+            end
+        end
+    })
+    tab:CreateTextbox({
+        Name                       = "Custom Message",
+        Placeholder                = "Type here…",
+        Default                    = "",
+        RemoveTextAfterFocusLost   = false,
+        Callback                   = function(text)
+            print("Textbox input:", text)
+        end
+    })
+    tab:CreateDropdown({
+        Name    = "Choose Team",
+        Options = {"Red", "Blue", "Green"},
+        Default = "Red",
+        Callback = function(choice)
+            print("Team selected:", choice)
+        end
+    })
+    tab:CreateKeybind({
+        Name     = "Toggle UI",
+        Default  = Enum.KeyCode.RightControl,
+        Mode     = "Toggle",
+        Callback = function()
+            Window:Toggle()
+        end
+    })
+    tab:CreateColorPicker({
+        Name    = "UI Accent Color",
+        Default = Color3.fromRGB(255,255,255),
+        Callback = function(color)
+            Window:SetAccentColor(color)
+        end
+    })
+end
+
+local function runUniversalFallback()
+    local universalTab = Window:CreateTab({
+        Name        = "Universal",
+        Icon        = "view_in_ar",
+        ImageSource = "Material",
+        ShowTitle   = true
+    })
+    universalTab:CreateSection("Admin")
+    universalTab:CreateButton({ Name = "Infinite Yield", Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+    end })
+    universalTab:CreateButton({ Name = "Nameless Admin", Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ltseverydayyou/Nameless-Admin/main/Source.lua"))()
+    end })
+    universalTab:CreateButton({ Name = "AK Admin", Callback = function()
+        loadstring(game:HttpGet("https://angelical.me/ak.lua"))()
+    end })
+    universalTab:CreateDivider()
+    universalTab:CreateSection("FE")
+    universalTab:CreateButton({ Name = "Stalkie", Callback = function()
+        repeat task.wait() until Players.LocalPlayer
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/0riginalWarrior/Stalkie/refs/heads/main/roblox.lua"))()
+    end })
+    universalTab:CreateDivider()
+    universalTab:CreateSection("Script Hubs")
+    universalTab:CreateButton({ Name = "Speed Hub X", Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()
+    end })
+    universalTab:CreateButton({ Name = "Forge Hub", Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Skzuppy/forge-hub/main/loader.lua"))()
+    end })
+    universalTab:CreateDivider()
+    universalTab:CreateSection("Server Utilities")
+    universalTab:CreateButton({ Name = "Rejoin",      Callback = rejoin      })
+    universalTab:CreateButton({ Name = "Serverhop",    Callback = serverhop    })
+    universalTab:CreateButton({ Name = "Small Server", Callback = smallServer })
+    addAdvancedControls(universalTab)
+end
+
+local function runDetectedGame()
+    local gameId   = game.PlaceId
+    local gameData = supportedGames[gameId]
+    if gameData then
+        local gamesTab = Window:CreateTab({
+            Name        = "Games",
+            Icon        = "view_in_ar",
+            ImageSource = "Material",
+            ShowTitle   = true
+        })
+        gamesTab:CreateSection("Scripts")
+        local scriptNames = {}
+        for _, s in ipairs(gameData.Scripts) do
+            table.insert(scriptNames, s.Name)
+        end
+        local selected = scriptNames[1]
+        gamesTab:CreateDropdown({
+            Name    = "Choose Script",
+            Options = scriptNames,
+            Default = selected,
+            Callback = function(choice)
+                selected = choice
+            end
+        })
+        gamesTab:CreateButton({
+            Name = "Run Script",
+            Callback = function()
+                for _, s in ipairs(gameData.Scripts) do
+                    if s.Name == selected then
+                        loadstring(game:HttpGet(s.URL, true))()
+                        return
+                    end
+                end
+                warn("No matching script URL found for “" .. selected .. "”")
+            end
+        })
+        addAdvancedControls(gamesTab)
+    else
+        runUniversalFallback()
+    end
+end
+
+task.defer(runDetectedGame)
