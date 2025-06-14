@@ -131,13 +131,20 @@ local Window = Luna:CreateWindow({
     Name            = "Saturn Hub",
     Subtitle        = "v1.0",
     Logo            = 7251671408,
-    LoadingEnabled  = true,
-    LoadingTitle    = "Saturn Hub",
-    LoadingSubtitle = "by coolio",
-    ConfigSettings = { RootFolder = nil, ConfigFolder = "saturnhub" },
-    KeySystem       = false
-})
 
+    Loading = {                                   
+        Enabled   = true,
+        Title     = "Saturn Hub",
+        Subtitle  = "by coolio"
+    },
+
+    ConfigSettings = {
+        RootFolder   = nil,
+        ConfigFolder = "saturnhub"
+    },
+
+    KeySystem = false                              -- disable key system entirely
+})
 
 Window:CreateHomeTab({
     SupportedExecutors = {},
