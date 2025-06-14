@@ -1,11 +1,11 @@
 -- Hard‑coded supported games list
 local supportedGames = {
     [3823781113] = {
-        Name = "Saber Simulator",
+        Name      = "Saber Simulator",
         ScriptURL = "https://rawscripts.net/raw/Saber-Simulator-SUMMER-SUMMER-EVENT-AUTO-FARM-AUTO-BUY-AUTO-BOSS-41970"
     },
-    [126884695634066] = {
-        Name = "Grow a Garden",
+    [126884695634066] = {                -- example corrected PlaceId
+        Name      = "Grow a Garden",
         ScriptURL = "https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua"
     }
 }
@@ -16,7 +16,7 @@ local function runUniversalFallback(Window, Luna)
         Title       = "Unsupported Game",
         Icon        = "notifications_active",
         ImageSource = "Material",
-        Content     = "Loading Universal fallback tab."
+        Content     = "Only the Universal tab is available."
     })
 
     local UniversalTab = Window:CreateTab({
@@ -27,21 +27,18 @@ local function runUniversalFallback(Window, Luna)
     })
 
     UniversalTab:CreateSection("Admin")
-
     UniversalTab:CreateButton({
         Name     = "Infinite Yield",
         Callback = function()
             loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
         end
     })
-
     UniversalTab:CreateButton({
         Name     = "Nameless Admin",
         Callback = function()
             loadstring(game:HttpGet("https://raw.githubusercontent.com/ltseverydayyou/Nameless-Admin/main/Source.lua"))()
         end
     })
-
     UniversalTab:CreateButton({
         Name     = "AK Admin",
         Callback = function()
@@ -51,7 +48,6 @@ local function runUniversalFallback(Window, Luna)
 
     UniversalTab:CreateDivider()
     UniversalTab:CreateSection("FE")
-
     UniversalTab:CreateButton({
         Name     = "Stalkie",
         Callback = function()
@@ -62,7 +58,12 @@ local function runUniversalFallback(Window, Luna)
 
     UniversalTab:CreateDivider()
     UniversalTab:CreateSection("Script Hubs")
-
+    UniversalTab:CreateButton({
+        Name     = "Speed Hub X",
+        Callback = function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()
+        end
+    })
     UniversalTab:CreateButton({
         Name     = "Forge Hub",
         Callback = function()
@@ -71,7 +72,7 @@ local function runUniversalFallback(Window, Luna)
     })
 end
 
--- Detect and run game‑specific script
+-- Detect and run game‑specific script (and create its tab)
 local function runDetectedGame(Window, Luna)
     local gameId   = game.PlaceId
     local gameData = supportedGames[gameId]
@@ -83,7 +84,22 @@ local function runDetectedGame(Window, Luna)
             ImageSource = "Material",
             Content     = "Detected supported game: " .. gameData.Name
         })
-        loadstring(game:HttpGet(gameData.ScriptURL))()
+
+        -- Create the Games tab only for supported titles
+        local GamesTab = Window:CreateTab({
+            Name        = "Games",
+            Icon        = "view_in_ar",
+            ImageSource = "Material",
+            ShowTitle   = true
+        })
+
+        -- You can add multiple buttons per game; here’s one for the detected game:
+        GamesTab:CreateButton({
+            Name     = gameData.Name,
+            Callback = function()
+                loadstring(game:HttpGet(gameData.ScriptURL))()
+            end
+        })
     else
         runUniversalFallback(Window, Luna)
     end
@@ -102,28 +118,18 @@ local Window = Luna:CreateWindow({
     LoadingEnabled  = true,
     LoadingTitle    = "Saturn Hub",
     LoadingSubtitle = "by coolio",
-
-    ConfigSettings = {
+    ConfigSettings  = {
         RootFolder   = nil,
         ConfigFolder = "saturnhub"
     },
-
     KeySystem = false
 })
 
--- Home tab (required by Luna)
+-- Always include Home (Luna requirement)
 Window:CreateHomeTab({
     SupportedExecutors = {},
     DiscordInvite     = "TyevewM7Jc",
     Icon               = 1
-})
-
--- Basic extra tab (optional)
-Window:CreateTab({
-    Name        = "Games",
-    Icon        = "view_in_ar",
-    ImageSource = "Material",
-    ShowTitle   = true
 })
 
 -- Auto‑detect on load
