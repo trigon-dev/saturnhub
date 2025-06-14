@@ -13,13 +13,13 @@ local Window = Luna:CreateWindow({
 		ConfigFolder = "saturnhub"
 	},
 	
-	KeySystem = true,
+	KeySystem = false,
 	KeySettings = {
 		Title = "Saturn Hub",
 		Subtitle = "Key System",
 		Note = "",
 		SaveInRoot = false,
-		SaveKey = true, 
+		SaveKey = false, 
 		Key = {"release"},
 		SecondAction = {
 			Enabled = false,
