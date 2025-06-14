@@ -138,15 +138,6 @@ local Label = Tab:CreateLabel({
 })
 
 local Tab = Window:CreateTab({
-	Name = "Configs",
-	Icon = "view_in_ar",
-	ImageSource = "Material",
-	ShowTitle = true
-})
-
-Configs:BuildConfigSection()
-
-local Tab = Window:CreateTab({
 	Name = "Settings",
 	Icon = "view_in_ar",
 	ImageSource = "Material",
@@ -174,8 +165,5 @@ local Button = Tab:CreateButton({
     	end
 })
 
-Tab:CreateDivider()
-
 Settings:BuildThemeSection()
-
 Luna:LoadAutoloadConfig()
