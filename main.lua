@@ -9,8 +9,8 @@ local Window = Luna:CreateWindow({
 	LoadingSubtitle = "by coolio",
 
 	ConfigSettings = {
-		RootFolder = "saturn",
-		ConfigFolder = "SaturnHub"
+		RootFolder = nil,
+		ConfigFolder = "saturnhub"
 	},
 	
 	KeySystem = false,
