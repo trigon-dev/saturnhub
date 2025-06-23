@@ -1,6 +1,6 @@
 --===== CONFIGURATION =====--
-local VersionURL = "https://raw.githubusercontent.com/barryjensen/saturnhub/refs/heads/main/version.txt"
-local HubURL     = "https://raw.githubusercontent.com/barryjensen/saturnhub/refs/heads/main/main.lua"
+local VersionURL = "https://raw.githubusercontent.com/trigon-dev/saturnhub/refs/heads/main/version.txt"
+local HubURL     = "https://raw.githubusercontent.com/trigon-dev/saturnhub/refs/heads/main/main.lua"
 
 -- fetch your current version from GitHub
 local function fetchLocalVersion()
